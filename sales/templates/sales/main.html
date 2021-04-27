@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 
 {% block title %}
-sales
+Sales List
 {% endblock title %}
 
 {% block content %}
-{{hello}}
+Sales List
+<br>
+
+{% for obj in object_list %}
+    {{obj.transaction_id}}
+{% endfor %}
 {% endblock content %}
