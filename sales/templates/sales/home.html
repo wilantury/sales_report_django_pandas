@@ -1,9 +1,18 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
 sales
 {% endblock title %}
 
 {% block content %}
 {{hello}}
+<hr>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form|crispy}}
+    <button type="submit" class="btn btn-primary mt-3">Search</button>
+</form>
 {% endblock content %}
