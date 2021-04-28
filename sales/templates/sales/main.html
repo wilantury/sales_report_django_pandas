@@ -9,6 +9,6 @@ Sales List
 <br>
 
 {% for obj in object_list %}
-    {{obj.transaction_id}}
+    <a href="{{obj.get_absolute_url}}"> {{obj.transaction_id}} </a>
 {% endfor %}
 {% endblock content %}
