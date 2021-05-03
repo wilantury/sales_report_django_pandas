@@ -9,6 +9,7 @@ from .forms import SalesSearchForm
 import pandas as pd
 
 def home_view(request):
+    sales_df = None
     form = SalesSearchForm(request.POST or None)
 
     if request.method == 'POST':
@@ -17,24 +18,23 @@ def home_view(request):
         chart_type = request.POST.get('chart_type')
     
         # qs = Sale.objects.all()
-        qs = Sale.objects.filter(created__date=date_from)
-        #obj = Sale.objects.get(id=1)
-        # print(qs)
-        # print(obj)
-        # print(qs.values())
-        # print(qs.values_list())
-        print("#"*20)
-        df1 = pd.DataFrame(qs.values())
-        print(df1)
-        print("#"*20)
-        # df2 = pd.DataFrame(qs.values_list())
-        # print(df2)
-        #print("#"*20)
+        qs = Sale.objects.filter(created__date__lte=date_to, created__date__gte=date_from)
+        if len(qs) > 0:
+            #obj = Sale.objects.get(id=1)
+            # print(obj)
+            # print(qs.values())
+            # print(qs.values_list())
+            sales_df = pd.DataFrame(qs.values())
+            print(sales_df)
+            sales_df = sales_df.to_html()
+        else:
+            print('no data')
 
 
 
     context = {
-        'form': form
+        'form': form,
+        'sales_df': sales_df
     }
     return render(request, 'sales/home.html', context)
 
