@@ -7,6 +7,8 @@ from .models import Sale
 from .forms import SalesSearchForm
 # Pandas
 import pandas as pd
+# utils
+from .utils import get_customer_from_id, get_salesman_from_id
 
 def home_view(request):
     sales_df = None
@@ -33,10 +35,17 @@ def home_view(request):
                         'position_id': pos.id,
                         'product': pos.product.name,
                         'quantity': pos.quantity,
-                        'price': pos.price
+                        'price': pos.price,
+                        'sales_id': sale.id # pos.get_sales_id()
                     }
                     positions_data.append(obj)
             sales_df = pd.DataFrame(sale_qs.values())
+            sales_df['customer_id'] = sales_df['customer_id'].apply(get_customer_from_id)
+            sales_df['salesman_id'] = sales_df['salesman_id'].apply(get_salesman_from_id)
+            sales_df.rename({'customer_id':'Customer', 'salesman_id':'Salesman'}, axis=1, inplace=True)
+            sales_df['created'] = sales_df['created'].apply(lambda date: date.strftime('%Y/%m/%d'))
+            sales_df['updated'] = sales_df['updated'].apply(lambda date: date.strftime('%Y/%m/%d'))
+
             sales_df = sales_df.to_html()
             positions_df = pd.DataFrame(positions_data)
             positions_df = positions_df.to_html()
