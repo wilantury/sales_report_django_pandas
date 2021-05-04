@@ -18,10 +18,14 @@ sales
 
 {% if sales_df %}
 {% comment %} tag safe- unscape the html string: allow to see as html code, instead to see it like a String {% endcomment %}
+    Sales DataFrame
     {{sales_df | safe}}
-    <br>
     <hr>
+    Positions DataFrame
     {{ positions_df | safe}}
+    <hr>
+    Sales and Positions Merged DataFrame
+    {{ merged_df | safe }}
 {% else %}
     <h3>No data</h3>
 {% endif %}
