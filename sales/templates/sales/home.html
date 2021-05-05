@@ -25,7 +25,7 @@ sales
     <br>
         Chart
         <br>
-        <img src="data:image/png;base64, {{chart|safe}}">
+        <img src="data:image/png;base64, {{chart|safe}}" id='img'>
     <br>
     Sales DataFrame
     {{sales_df | safe}}
@@ -41,5 +41,7 @@ sales
 {% else %}
     <h3>No data</h3>
 {% endif %}
+
+<button class="btn btn-primary not-visible" id="report-btn">Add report</button>
 
 {% endblock content %}
