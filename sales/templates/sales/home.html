@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% load crispy_forms_tags %}
+
+{% block scripts %}
+    <script src="{% static 'sales/home.js'%}" defer></script>
+{% endblock scripts %}
 
 {% block title %}
 sales
@@ -18,6 +22,11 @@ sales
 
 {% if sales_df %}
 {% comment %} tag safe- unscape the html string: allow to see as html code, instead to see it like a String {% endcomment %}
+    <br>
+        Chart
+        <br>
+        <img src="data:image/png;base64, {{chart|safe}}">
+    <br>
     Sales DataFrame
     {{sales_df | safe}}
     <hr>

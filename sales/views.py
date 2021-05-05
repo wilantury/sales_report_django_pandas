@@ -8,13 +8,14 @@ from .forms import SalesSearchForm
 # Pandas
 import pandas as pd
 # utils
-from .utils import get_customer_from_id, get_salesman_from_id
+from .utils import get_customer_from_id, get_salesman_from_id, get_chart
 
 def home_view(request):
     sales_df = None
     positions_df = None
     merged_df = None
     df = None
+    chart = None
     form = SalesSearchForm(request.POST or None)
 
     if request.method == 'POST':
@@ -53,7 +54,8 @@ def home_view(request):
 
             merged_df = pd.merge(sales_df, positions_df, on='sales_id')
             df = merged_df.groupby('transaction_id', as_index=False)['price'].agg(sum)
-            print(df)
+            
+            chart = get_chart(chart_type, df, labels=df['transaction_id'].values)
             sales_df = sales_df.to_html()
             positions_df = positions_df.to_html()
             merged_df = merged_df.to_html()
@@ -70,7 +72,8 @@ def home_view(request):
         'sales_df': sales_df,
         'positions_df':positions_df,
         'merged_df':merged_df,
-        'df':df
+        'df':df,
+        'chart': chart
     }
     return render(request, 'sales/home.html', context)
 
