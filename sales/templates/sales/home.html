@@ -32,6 +32,12 @@ sales
   </div>
 </div>
 
+{% if no_data %}
+  <div class="alert alert-warning" role="alert">
+    {{ no_data }}
+  </div>
+{% endif %}
+
 <form action="" method="POST">
     {% csrf_token %}
     {{search_form|crispy}}
@@ -58,8 +64,6 @@ sales
     <hr>
     Group by
     {{ df | safe }}
-{% else %}
-    <h3>No data</h3>
 {% endif %}
 <br>
 <button class="btn btn-primary not-visible" data-bs-toggle="modal" data-bs-target="#reportModal" id="report-btn" >Add report</button>
