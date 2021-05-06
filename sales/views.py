@@ -60,8 +60,6 @@ def home_view(request):
             positions_df = positions_df.to_html()
             merged_df = merged_df.to_html()
             df = df.to_html()
-        
-
         else:
             print('no data')
 
