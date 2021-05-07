@@ -4,7 +4,8 @@ from django.urls import path
 from .views import (
     create_report_view, 
     ReportDetailView, 
-    ReportListView
+    ReportListView,
+    render_pdf_view,
 )
 
 app_name = 'reports'
@@ -12,5 +13,6 @@ app_name = 'reports'
 urlpatterns = [
     path('save/', create_report_view, name='create-reports'),
     path('', ReportListView.as_view(), name='main'),
+    path('pdf/', render_pdf_view, name='pdf'),
     path('<pk>/', ReportDetailView.as_view(), name='detail'),
 ]
