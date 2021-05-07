@@ -4,12 +4,17 @@ const modalBody = document.getElementById('modal-body')
 const reportName = document.getElementById('id_name')
 const reportRemarks = document.getElementById('id_remarks')
 const reportForm = document.getElementById('report-form')
+const alertBox = document.getElementById('alert-box')
 
 const csrf = document.getElementsByName('csrfmiddlewaretoken')[0].value
 
-console.log(csrf)
-console.log(reportName)
-console.log(reportRemarks)
+const handleAlerts = (type, msn) =>{
+    alertBox.innerHTML = `
+    <div class="alert alert-${type}" role="alert">
+        ${msn}
+    </div>
+    `
+}
 
 if (img){
     reportBtn.classList.remove('not-visible')
@@ -32,10 +37,10 @@ reportBtn.addEventListener('click', ()=>{
             url:'/reports/save/',
             data: formData,
             success: response => {
-                console.log(response)
+                handleAlerts('success', 'Report has been created successfully')
             },
             error: error => {
-                console.log(error)
+                handleAlerts('danger', '!Ups¡, something went wrong...')
             },
             processData: false,
             contentType: false,
