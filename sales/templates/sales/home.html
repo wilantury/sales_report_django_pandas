@@ -22,6 +22,7 @@ sales
       </div>
       <div class="modal-body" id="modal-body">
         <div id="alert-box"></div>
+        <br>
         <form id="report-form">
           {% csrf_token %}  
           {{ report_form|crispy}}
@@ -49,8 +50,6 @@ sales
 {% if sales_df %}
 {% comment %} tag safe- unscape the html string: allow to see as html code, instead to see it like a String {% endcomment %}
     <br>
-        Chart
-        <br>
         <img src="data:image/png;base64, {{chart|safe}}" id='img'>
     <br>
     Sales DataFrame
