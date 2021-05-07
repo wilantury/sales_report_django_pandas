@@ -15,5 +15,8 @@ class Report(models.Model):
     def get_absolute_url(self):
         return reverse("reports:detail", kwargs={"pk": self.pk})
     
+    class Meta:
+        ordering = ('-created',)
+    
     def __str__(self):
         return str(self.name)
