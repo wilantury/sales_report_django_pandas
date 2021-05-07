@@ -26,7 +26,7 @@ sales
         <form id="report-form">
           {% csrf_token %}  
           {{ report_form|crispy}}
-          <button type="submit" class="btn btn-info mt-2">Save</button>
+          <button type="submit" id="save-btn" class="btn btn-info mt-2">Save</button>
         </form>
       </div>
     </div>
