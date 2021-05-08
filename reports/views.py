@@ -1,5 +1,5 @@
 # Django
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.views.generic import ListView, DetailView
 from django.conf import settings
@@ -48,9 +48,10 @@ def create_report_view(request):
         return JsonResponse({'data':'send'})
     return JsonResponse({'res':'No ajax request'})
 
-def render_pdf_view(request):
+def render_pdf_view(request, pk):
     template_path = 'reports/pdf.html'
-    context = {'hello': 'Hello world PDF'}
+    obj = get_object_or_404(Report, pk=pk)
+    context = {'obj': obj}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     # Download file
