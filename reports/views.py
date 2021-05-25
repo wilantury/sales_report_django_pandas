@@ -1,5 +1,4 @@
 # Django
-from os import name
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.views.generic import ListView, DetailView, TemplateView
@@ -7,6 +6,8 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import get_template
 from django.utils.dateparse import parse_date
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Python
 import csv
 # libraries
@@ -22,17 +23,18 @@ from .forms import ReportForm
 # utils
 from .utils import get_report_image
 
-class ReportListView(ListView):
+class ReportListView(LoginRequiredMixin, ListView):
     model = Report
     template_name = 'reports/main.html'
 
-class ReportDetailView(DetailView):
+class ReportDetailView(LoginRequiredMixin, DetailView):
     model = Report
     template_name = 'reports/detail.html'
 
-class UploadTemplateView(TemplateView):
+class UploadTemplateView(LoginRequiredMixin, TemplateView):
     template_name = 'reports/from_file.html'
 
+@login_required
 def csv_upload_view(request):
 
     if request.method == 'POST':
@@ -72,6 +74,7 @@ def csv_upload_view(request):
 
     return HttpResponse()
 
+@login_required
 def create_report_view(request):
     if request.is_ajax():
         """a way to save the data into database, using the Models object"""
@@ -97,6 +100,7 @@ def create_report_view(request):
         return JsonResponse({'data':'send'})
     return JsonResponse({'res':'No ajax request'})
 
+@login_required
 def render_pdf_view(request, pk):
     template_path = 'reports/pdf.html'
     obj = get_object_or_404(Report, pk=pk)
