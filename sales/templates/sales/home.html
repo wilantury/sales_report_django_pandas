@@ -23,7 +23,7 @@ sales
       <div class="modal-body" id="modal-body">
         <div id="alert-box"></div>
         <br>
-        <form id="report-form">
+        <form id="report-form" autocomplete="off">
           {% csrf_token %}  
           {{ report_form|crispy}}
           <button type="submit" id="save-btn" class="btn btn-info mt-2">Save</button>
@@ -39,11 +39,16 @@ sales
   </div>
 {% endif %}
 
-<form action="" method="POST">
-    {% csrf_token %}
-    {{search_form|crispy}}
-    <button type="submit" class="btn btn-primary mt-3">Search</button>
-</form>
+<div class="row">
+  <div class="col-3"></div>
+  <div class="col-6">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{search_form|crispy}}
+        <button type="submit" class="btn btn-primary mt-3">Search</button>
+    </form>
+  </div>
+</div>
 
 <br>
 
