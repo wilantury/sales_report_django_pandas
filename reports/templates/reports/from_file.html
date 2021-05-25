@@ -12,6 +12,7 @@ Upload sales files
 {% block content %}
     <h5>Upload your sales documents</h5>
     <br>
+    <div id="alert-box"></div>
     <form id="my-dropzone" class="dropzone dz">
         {% csrf_token %}        
         <div class="fallback">
